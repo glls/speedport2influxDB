@@ -9,6 +9,8 @@ a simple python script to get data from Speedport Cosmote router
 ## nagios config
 
 copy `check_speedport` file to `/usr/local/nagios/libexec/`
+
+
 copy `speedport.cfg` to your objects dir e.g. `/usr/local/nagios/etc/objects`
 
 ## sample output :
