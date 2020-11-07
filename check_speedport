@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+import sys, json;
+import requests;
+
+url = 'http://192.168.3.1/data/Status.json'
+headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'Accept-Language': 'en'}
+
+try:
+    r = requests.get(url, headers=headers)
+except requests.exceptions.RequestException as e:
+        exit(2)
+
+data={}
+if( r.status_code == requests.codes.ok) :
+        j = r.json()
+        for l in j :
+                print (l['varid'],':', l['varvalue'])
+                data[l['varid']] = l['varvalue']
+
+        if (data['dsl_link_status'] == 'online') :
+                exit(0)
+
+exit(1)
