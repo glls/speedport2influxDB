@@ -3,7 +3,7 @@
 import sys, json;
 import requests;
 
-url = 'http://192.168.3.1/data/Status.json'
+url = 'http://speedport.ip/data/Status.json'
 headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'Accept-Language': 'en'}
 
 try:
