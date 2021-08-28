@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import argparse
 import sys, json;
 import requests;
 from influxdb import InfluxDBClient
@@ -7,6 +7,11 @@ from influxdb.exceptions import InfluxDBServerError, InfluxDBClientError
 
 url = 'http://speedport.ip/data/Status.json'
 headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8', 'Accept-Language': 'en'}
+
+parser = argparse.ArgumentParser(description='Read Speedport router data.')
+parser.add_argument('-v', '--verbose', action='store_true')
+parser.add_argument('-w', '--write', action='store_true')
+args = parser.parse_args()
 
 try:
     r = requests.get(url, headers=headers)
@@ -17,20 +22,22 @@ data={}
 if( r.status_code == requests.codes.ok) :
     j = r.json()
     for l in j :
-        # print (l['varid'],':', l['varvalue'])
+        if args.verbose:
+            print (l['varid'],':', l['varvalue'])
         data[l['varid']] = l['varvalue']
 
     # send to influxDB
-    d = [{
-        "measurement": "speedport_data",
-        "fields": data
-    }]
-    try:
-        client = InfluxDBClient(host='192.168.3.11', port=8086, database='speedport')
-        client.write_points(d)
-    except (InfluxDBClientError, InfluxDBServerError):
-        print("Error writing to InfluxDB")
-        exit(3)
+    if args.write:
+        d = [{
+            "measurement": "speedport_data",
+            "fields": data
+        }]
+        try:
+            client = InfluxDBClient(host='192.168.3.11', port=8086, database='speedport')
+            client.write_points(d)
+        except (InfluxDBClientError, InfluxDBServerError):
+            print("Error writing to InfluxDB")
+            exit(3)
 
     if (data['dsl_link_status'] == 'online') :
         exit(0)
