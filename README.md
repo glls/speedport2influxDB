@@ -12,7 +12,7 @@ copy `check_speedport` file to `/usr/local/nagios/libexec/`
 
 copy `speedport.cfg` to your objects dir e.g. `/usr/local/nagios/etc/objects`
 
-## run it every 15 min with crontab
+## run it every 15 min with crontab :
 ```
 */15 * * * * /path/to/speedport/check_speedport -w
 ```
