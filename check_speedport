@@ -33,7 +33,7 @@ if( r.status_code == requests.codes.ok) :
             "fields": data
         }]
         try:
-            client = InfluxDBClient(host='192.168.3.11', port=8086, database='speedport')
+            client = InfluxDBClient(host='127.0.0.1', port=8086, database='speedport')
             client.write_points(d)
         except (InfluxDBClientError, InfluxDBServerError):
             print("Error writing to InfluxDB")
