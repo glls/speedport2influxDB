@@ -1,8 +1,14 @@
-# speedport
+# speedport2InfuxDB
 
 A python script to get connection data from Speedport Cosmote router and store it in InfluxDB
 
 ## python script :
+
+install InfluxDB support for python3 :
+
+`python3 -m pip install influxdb`
+
+and run
 
 `check_speedport`
 
