@@ -1,6 +1,6 @@
 # speedport
 
-a simple python script to get data from Speedport Cosmote router
+A python script to get connection data from Speedport Cosmote router and store it in InfluxDB
 
 ## python script :
 
